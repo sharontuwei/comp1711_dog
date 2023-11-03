@@ -55,7 +55,7 @@ int main() {
     while (fgets(line, line_size, file)){
         count++;
     }
-    printf("Number of records in the file: %d\n", count);
+    printf("Number of records in file: %d\n", count);
 
 
     char date[11];
