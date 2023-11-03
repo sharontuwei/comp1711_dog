@@ -70,11 +70,11 @@ int main() {
     while(fgets(line, line_size, file)){
         tokeniseRecord(line, ",", date, time, step);
         int steps;
-        steps = atoi(step);
         for(a = 0; a < 3; a++){
             strcpy(fitness_data[a].date, dates[a]);
             strcpy(fitness_data[a].time, times[a]);
             fitness_data[a].steps;
+            steps = atoi(step);
         }
     }
 
