@@ -52,31 +52,24 @@ int main() {
     int line_size = 1000;
     char line[line_size];
     int count = 0;
-    while (fgets(line, line_size, file)){
-        count++;
-    }
-    printf("Number of records in file: %d\n", count);
-
 
     char date[11];
     char time[6];
     char step[10];
     
-
-    int a;
+    int a = 0;
     FITNESS_DATA fitness_data[1000];
-    char *dates[1000];
-    char *times[1000];
     while(fgets(line, line_size, file)){
+        count++;
         tokeniseRecord(line, ",", date, time, step);
+        strcpy(fitness_data[a].date, date);
+        strcpy(fitness_data[a].time, time);
         int steps;
-        for(a = 0; a < 3; a++){
-            strcpy(fitness_data[a].date, dates[a]);
-            strcpy(fitness_data[a].time, times[a]);
-            fitness_data[a].steps;
-            steps = atoi(step);
-        }
-    }
+        steps = atoi(step);
+        fitness_data[a].steps = steps;
+    a++;}
+
+    printf("Number of records in file: %d\n", count);
 
     for(a = 0; a < 3; a++){
         printf("%s/", fitness_data[a].date);
