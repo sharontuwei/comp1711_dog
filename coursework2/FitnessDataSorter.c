@@ -25,9 +25,9 @@ void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *s
     }
 }
 
-//int cmpfunc (const void * a, const void * b){
-    //return (*(int*)a - *(int*)b);
-//}
+int cmpfunc (const void * a, const void * b){
+    return (*(int*)a-*(int*)b);
+}
 
 int main() {
     printf("Input filename: ");
@@ -65,12 +65,26 @@ int main() {
     fitness_data[a].steps = steps;
     a++;}
 
-    for (a=0; a<count; a++){
-        if (fitness_data[a].steps == i){
-            printf("%d\n", i);
-        }
-      // printf("%d\n", fitness_data[a].steps);
+    qsort(fitness_data, count, sizeof(FitnessData), cmpfunc);
+
+    char new_file[1000];
+    snprintf(new_file, sizeof(new_file), "%s.tsv", filename);
+
+    FILE *newfile;
+    newfile = fopen(new_file, "w");
+    if (file == NULL){
+        perror("Error: invalid file.\n");
+        return 1;
     }
+
+    fprintf(newfile, "Date\tTime\tSteps\n");
+    for (a=0; a<count; a++){
+        fprintf(newfile, "%s\t%s\t%d\n", fitness_data[a].date, fitness_data[a].time, fitness_data[a].steps);
+    }
+
+    fclose(newfile);
+
+    printf("Data sorted and written to %s\n", new_file);
 
     //printf("%d\n", fitness_data[i].steps);
 
