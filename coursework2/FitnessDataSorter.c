@@ -37,7 +37,7 @@ int main() {
     file = fopen(filename, "r");
         
     if (file == NULL){
-        printf("Error: invalid file.\n");
+        perror("Error: invalid file.\n");
         return 1;
     }
 
@@ -72,7 +72,7 @@ int main() {
 
     FILE *newfile;
     newfile = fopen(new_file, "w");
-    if (file == NULL){
+    if (newfile == NULL){
         perror("Error: invalid file.\n");
         return 1;
     }
@@ -90,5 +90,4 @@ int main() {
 
     
     fclose(file);
-    return 0;
 }
