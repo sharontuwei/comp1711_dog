@@ -59,11 +59,22 @@ int main() {
 
     
 
-    FILE *file = fopen("FitnessData_2023.csv", "r");
+    /*FILE *file = fopen("FitnessData_2023.csv", "r");
     if (file == NULL){
         printf("Error: could not open file.\n");
         return 1;
-    }
+    }*/
+
+    printf("Input filename: ");
+        char filename[100];
+        scanf("%s", filename);
+        FILE *file;
+        file = fopen(filename, "r");
+        
+        if (file == NULL){
+            printf("Error: could not open file.\n");
+            return 1;
+        }
         
         
     int line_size = 1000;
