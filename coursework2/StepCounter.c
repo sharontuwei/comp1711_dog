@@ -36,50 +36,10 @@ void tokeniseRecord(const char *input, const char *delimiter,
     free(inputCopy);
 
                     }
-
-
-
-
-// Complete the main function
-int main() {
-    char option;
-     printf("Menu options: \n");
-
-    printf("A: Specify the filename to be imported\n");
-    printf("B: Display the total number of records in the file\n");
-    printf("C: Find the date and time of the timeslot with the fewest steps\n");
-    printf("D: Find the date and time of the timeslot with the largest number of steps\n");
-    printf("E: Find the mean step count of all the records in the file\n");
-    printf("F: Find the longest continuous period where the step count is above 500 steps\n");
-    printf("Q: Quit\n");
-
-
-    printf("Select an option: ");
-    scanf("%c", &option);
-
     
-
-    /*FILE *file = fopen("FitnessData_2023.csv", "r");
-    if (file == NULL){
-        printf("Error: could not open file.\n");
-        return 1;
-    }*/
-
-    printf("Input filename: ");
-        char filename[100];
-        scanf("%s", filename);
-        FILE *file;
-        file = fopen(filename, "r");
-        
-        if (file == NULL){
-            printf("Error: could not open file.\n");
-            return 1;
-        }
-        
-        
-    int line_size = 1000;
-    char line[line_size];
-
+    //int line_size = 1000;
+    //char line[line_size];
+    
     int count = 0;
     int a = 0;
     int mean = 0;
@@ -95,33 +55,44 @@ int main() {
     char time[6];
     char step[10];
 
-    FITNESS_DATA fitness_data[1000];
-    while(fgets(line, line_size, file)){
-    count++;
-    tokeniseRecord(line, ",", date, time, step);
-    strcpy(fitness_data[a].date, date);
-    strcpy(fitness_data[a].time, time);
-    int steps;
-    steps = atoi(step);
-    fitness_data[a].steps = steps;
-    a++;}
 
-    for (a=0; a<1; a++){
-        max = fitness_data[a].steps;
-    }
-    for (a=1; a<count; a++){
-        if (fitness_data[a].steps > max){
-            max = fitness_data[a].steps;
+
+
+// Complete the main function
+int main(){
+    char option;
+     printf("Menu options: \n");
+
+    printf("A: Specify the filename to be imported\n");
+    printf("B: Display the total number of records in the file\n");
+    printf("C: Find the date and time of the timeslot with the fewest steps\n");
+    printf("D: Find the date and time of the timeslot with the largest number of steps\n");
+    printf("E: Find the mean step count of all the records in the file\n");
+    printf("F: Find the longest continuous period where the step count is above 500 steps\n");
+    printf("Q: Quit\n");
+
+
+    printf("Select an option: ");
+    scanf("%c", &option);
+
+    int line_size = 1000;
+    char line[line_size];
+
+    FILE *file = fopen("FitnessData_2023.csv", "r");
+        if (file == NULL){
+            printf("Error: could not open file.\n");
+            return 1;
         }
-    }
-    for (a=0; a<1; a++){
-        min = fitness_data[a].steps;
-    }
-    for (a=1; a<count; a++){
-        if (fitness_data[a].steps < min){
-            min = fitness_data[a].steps;
-        }
-    }
+        FITNESS_DATA fitness_data[1000];
+        while(fgets(line, line_size, file)){
+        count++;
+        tokeniseRecord(line, ",", date, time, step);
+        strcpy(fitness_data[a].date, date);
+        strcpy(fitness_data[a].time, time);
+        int steps;
+        steps = atoi(step);
+        fitness_data[a].steps = steps;
+        a++;}
 
 
     switch(option){
@@ -142,11 +113,20 @@ int main() {
         break;
                 
         case 'B':
+
         printf("Total records: %d\n", count);
         break;
 
         case 'C':
-       for (a=0; a<count; a++){
+        for (a=0; a<1; a++){
+        min = fitness_data[a].steps;
+        }
+        for (a=1; a<count; a++){
+            if (fitness_data[a].steps < min){
+            min = fitness_data[a].steps;
+            }
+        }
+        for (a=0; a<count; a++){
             if (fitness_data[a].steps == min){
                 printf("Fewest steps: %s %s\n", fitness_data[a].date, fitness_data[a].time);
             }
@@ -155,6 +135,14 @@ int main() {
         break;
 
         case 'D':
+        for (a=0; a<1; a++){
+        max = fitness_data[a].steps;
+        }
+        for (a=1; a<count; a++){
+            if (fitness_data[a].steps > max){
+            max = fitness_data[a].steps;
+            }
+        }
         for (a=0; a<count; a++){
             if (fitness_data[a].steps == max){
                 printf("Largest steps: %s %s\n", fitness_data[a].date, fitness_data[a].time);
@@ -199,6 +187,7 @@ int main() {
         break;
 
         case 'Q':
+        return 1;
         break;
 
         default :
