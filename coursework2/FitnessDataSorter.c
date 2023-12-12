@@ -25,8 +25,17 @@ void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *s
     }
 }
 
-int cmpfunc (const void * a, const void * b){
-    return (*(int*)a-*(int*)b);
+int cmpfunc (const void * c, const void * d){
+    int x = *(int*)c;
+    int y = *(int*)d;
+
+    if (x<y){
+        return 1;
+    }
+    else if (x>y){
+        return -1;
+    }
+    return 0;
 }
 
 int main() {
@@ -52,9 +61,6 @@ int main() {
     //char step[10];
     int steps;
     char del = ',';
-    int i = 0;
-    int j;
-    int temp;
 
     FitnessData fitness_data[1000];
     while(fgets(line, line_size, file)){
@@ -65,7 +71,7 @@ int main() {
     fitness_data[a].steps = steps;
     a++;}
 
-    qsort(fitness_data, count, sizeof(FitnessData), cmpfunc);
+    qsort(fitness_data, count, sizeof(*fitness_data), cmpfunc);
 
     char new_file[1000];
     snprintf(new_file, sizeof(new_file), "%s.tsv", filename);
@@ -85,9 +91,7 @@ int main() {
     fclose(newfile);
 
     printf("Data sorted and written to %s\n", new_file);
-
-    //printf("%d\n", fitness_data[i].steps);
-
     
     fclose(file);
+    return 0;
 }
